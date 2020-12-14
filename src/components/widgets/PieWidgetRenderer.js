@@ -4,13 +4,15 @@ import vegaLite from 'vega-lite'
 import vegaEmbed from 'vega-embed'
 import { getValueFrom } from '../../utils/common'
 
-function PieWidgetRenderer({ config, dataSource }) {
+function PieWidgetRenderer({ el, config, dataSource }) {
 	useEffect(() => {
-		if (config.data) {
+		if (dataSource && config && config.data && dataSource.data) {
 			let values = getValueFrom(dataSource.data, config.data) || {}
 			let cfg = {
 				$schema: 'https://vega.github.io/schema/vega-lite/v4.json',
 				description: 'A simple bar chart with embedded data.',
+				width: 'container',
+				height: 'container',
 				mark: 'arc',
 				...config,
 				data: {
@@ -18,12 +20,18 @@ function PieWidgetRenderer({ config, dataSource }) {
 				},
 				view: {stroke: null}
 			}
-			vegaEmbed('#vis', cfg)
+			try {
+				el && vegaEmbed(`#${el}`, cfg)
+				
+			} catch (error) {
+				console.log(error)
+			}
 		}
-	}, [config, dataSource])
+	}, [JSON.stringify(config), JSON.stringify(dataSource)])
+	if (!dataSource) return (<div></div>)
 	return (
 		<div className="widget-display" >
-			<div id="vis" />
+			<div style={{'width': '100%', 'padding': '10px'}} id={el} />
 		</div>
 	)
 }

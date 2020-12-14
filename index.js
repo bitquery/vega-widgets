@@ -1,10 +1,11 @@
-import BarWidgetEditor from '../widgets/BarWidgetEditor'
-import BarWidgetRenderer from '../widgets/BarWidgetRenderer'
-import PieWidgetEditor from '../widgets/PieWidgetEditor'
-import PieWidgetRenderer from '../widgets/PieWidgetRenderer'
+import BarWidgetEditor from './src/components/widgets/BarWidgetEditor'
+import BarWidgetRenderer from './src/components/widgets/BarWidgetRenderer'
+import PieWidgetEditor from './src/components/widgets/PieWidgetEditor'
+import PieWidgetRenderer from './src/components/widgets/PieWidgetRenderer'
 
 class BarPlugin {
 	constructor() {
+		this.id = 'vega.bar'
 		this.name = 'Bar Widget'
 		this.editor = BarWidgetEditor
 		this.renderer = BarWidgetRenderer
@@ -18,6 +19,7 @@ class BarPlugin {
 }
 class PiePlugin {
 	constructor() {
+		this.id = 'vega.pie'
 		this.name = 'Pie Widget'
 		this.editor = PieWidgetEditor
 		this.renderer = PieWidgetRenderer
@@ -30,4 +32,4 @@ class PiePlugin {
 	}
 }
 
-export let plugins = [new BarPlugin(), new PiePlugin()]
+export let vegaPlugins = [new BarPlugin(), new PiePlugin()]

@@ -1,13 +1,30 @@
 import React from 'react'
 
-function JsonWidget({result}) {
+function JsonWidget({el, dataSource}) {
+	if (!dataSource) return (<div></div>)
 	return (
-		<div className="widget">
-			<pre style={{'alignSelf': 'flex-start', 'width': '100%'}}>
-				{JSON.stringify(result, null, 2)}
+		<div className="widget-display" id={el}>
+			<pre style={{
+				'alignSelf': 'flex-start',
+				'width': '100%'
+				}}
+			>
+				{dataSource && JSON.stringify(dataSource.data, null, 2)}
 			</pre>
 		</div>
 	)
 }
 
-export default JsonWidget
+class JsonPlugin {
+	constructor() {
+		this.id = 'json.widget'
+		this.name = 'JSON'
+		this.editor = () => (<div className="widget"/>)
+		this.renderer = JsonWidget
+	}
+	supportsModel() {
+		return true
+	}
+}
+
+export default new JsonPlugin()

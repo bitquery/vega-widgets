@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import WidgetOptions from '../WidgetOptions'
 
-function BarWidgetEditor({model, result, setConfig}) {
-	const xFunc = node => model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
-	const yFunc = node => model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+function BarWidgetEditor({model, setConfig}) {
+	const xFunc = node => {if (typeof model[node] === 'string') {
+		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	}}
+	const yFunc = node =>   {if (typeof model[node] === 'string') {
+		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	}}
 	const dataFunc = node => (model[node][0]==='[' && node.slice(-2, -1)!=='0') 
 	const [xAxis, setXAxis] = useState('')
 	const [yAxis, setYAxis] = useState('')
@@ -21,18 +25,18 @@ function BarWidgetEditor({model, result, setConfig}) {
 			}
 			setConfig(cfg)
 		}
-	}, [result, model, xAxis, yAxis, displayedData])
+	}, [xAxis, yAxis, displayedData])
 	
 	return (
 		<div className="widget">
+			<WidgetOptions 
+				value={displayedData}
+				setValue={setDisplayedData}
+				condition={dataFunc}
+				title={'Displayed data'}
+				model={model}
+			/>
 			<div className="widget-editor">
-				<WidgetOptions 
-					value={displayedData}
-					setValue={setDisplayedData}
-					condition={dataFunc}
-					title={'Displayed data'}
-					model={model}
-				/>
 				<WidgetOptions 
 					value={xAxis}
 					setValue={setXAxis}

@@ -1,24 +1,29 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  entry: "./src/components/plugin/vegaPlugin.js",
+  entry: './index.js',
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "index.js"
+    path: path.join(__dirname, '/dist'),
+    filename: 'index.js',
+    libraryTarget: "umd",
+    library: "vega-widgets"
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        include: path.resolve(__dirname, 'src'),
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader']
       }
     ]
+  },
+  externals: {
+    'react': 'commonjs react' 
   }
 };

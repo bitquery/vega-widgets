@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import WidgetOptions from '../WidgetOptions'
 
-function PieWidgetEditor({model, result, setConfig}) {
-	const thetaFunc = node => model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
-	const colorFunc = node => model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+function PieWidgetEditor({model, setConfig}) {
+	const thetaFunc = node => {if (typeof model[node] === 'string') {
+		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	}}
+	const colorFunc = node => {if (typeof model[node] === 'string') {
+		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	}}
 	const dataFunc = node => (model[node][0]==='[' && node.slice(-2, -1)!=='0') 
 	const [theta, setTheta] = useState('')
 	const [color, setColor] = useState('')
@@ -21,17 +25,17 @@ function PieWidgetEditor({model, result, setConfig}) {
 			}
 			setConfig(cfg)
 		}
-	}, [result, model, theta, color, displayedData])
+	}, [theta, color, displayedData])
 	return (
 		<div className="widget">
+			<WidgetOptions 
+				value={displayedData}
+				setValue={setDisplayedData}
+				condition={dataFunc}
+				title={'Displayed data'}
+				model={model}
+			/>
 			<div className="widget-editor">
-				<WidgetOptions 
-					value={displayedData}
-					setValue={setDisplayedData}
-					condition={dataFunc}
-					title={'Displayed data'}
-					model={model}
-				/>
 				<WidgetOptions 
 					value={theta}
 					setValue={setTheta}
