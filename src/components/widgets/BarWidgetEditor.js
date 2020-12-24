@@ -1,21 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useFirstUpdate } from '../../utils/useFirstUpdate'
 import WidgetOptions from '../WidgetOptions'
 
-function BarWidgetEditor({model, setConfig}) {
+function BarWidgetEditor({model, config, setConfig}) {
 	const xFunc = node => {if (typeof model[node] === 'string') {
 		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
 	}}
-	const yFunc = node =>   {if (typeof model[node] === 'string') {
+	const yFunc = node => {if (typeof model[node] === 'string') {
 		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
 	}}
 	const dataFunc = node => (model[node][0]==='[' && node.slice(-2, -1)!=='0') 
 	const [xAxis, setXAxis] = useState('')
 	const [yAxis, setYAxis] = useState('')
-	const [displayedData, setDisplayedData] = useState('')
+	const [displayedData, setDisplayedData] = useState(() => config ? config.data : '')
+
 	useEffect(() => {
-		if (model  ) {
-			let fieldX = xAxis.replace(`${displayedData}.`, '')
-			let fieldY = yAxis.replace(`${displayedData}.`, '')
+		if (!xAxis && config) {
+			if (Object.keys(config).length) {
+				if ('encoding' in config) {
+					if ('x' in config.encoding) {
+						setXAxis(`${config.data}.${config.encoding.x.field}`)
+					}
+					if ('y' in config.encoding) {
+						setYAxis(`${config.data}.${config.encoding.y.field}`)
+					}
+				}
+			}
+		} 
+	}, [JSON.stringify(config)])
+	useFirstUpdate(() => {
+		if (model) {
+			let fieldX = xAxis && xAxis.replace(`${displayedData}.`, '')
+			let fieldY = yAxis && yAxis.replace(`${displayedData}.`, '')
 			var cfg = {
 				data: displayedData,
 				encoding: {
