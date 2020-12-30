@@ -7,6 +7,7 @@ function WidgetOptions({model, condition, value, setValue, title}) {
 			if (!value) setValue(list[0])
 		}
 	}, [JSON.stringify(model)])
+
 	return (
 		<div className="widget-option"> 
 			<label>{title}</label>
