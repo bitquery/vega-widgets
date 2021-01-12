@@ -14,10 +14,10 @@ function WidgetOptions({model, condition, value, setValue, title}) {
 			<select className="custom-select" value={value} onChange={e=>setValue(e.target.value)}>
 				{Object.keys(model).length 
 					? Object.keys(model).map((node, i)=>condition(node)
-						? <option key={i} value={node}>{node.split('.').slice(-1)}</option>
+						? <option key={i} value={node}>{node}</option>
 						: null
 					) : value 
-						? <option value={value}>{value.split('.').slice(-1)}</option>
+						? <option value={value}>{value}</option>
 						: null
 				}
 			</select>

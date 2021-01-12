@@ -11,10 +11,7 @@ class BarPlugin {
 		this.renderer = BarWidgetRenderer
 	}
 	supportsModel(model) {
-		if (
-			(model.includes('String!') || model.includes('Int!')) &&
-			(model.includes('Int') || model.includes('Float'))
-		) { return true } else { return false }
+		return model[0]==='[' && model.slice(-2, -1)!=='0'
 	}
 }
 class PiePlugin {
@@ -25,10 +22,7 @@ class PiePlugin {
 		this.renderer = PieWidgetRenderer
 	}
 	supportsModel(model) {
-		if (
-			(model.includes('String') || model.includes('Int') || model.includes('Float')) &&
-			(model.includes('String') || model.includes('Int') || model.includes('Float'))
-		) { return true } else { return false }
+		return model[0]==='['&& model.slice(-2, -1)!=='0'
 	}
 }
 
