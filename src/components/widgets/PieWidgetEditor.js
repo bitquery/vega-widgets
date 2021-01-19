@@ -3,11 +3,15 @@ import { useFirstUpdate } from '../../utils/useFirstUpdate'
 import WidgetOptions from '../WidgetOptions'
 
 function PieWidgetEditor({model, config, setConfig, displayedData}) {
-	const thetaFunc = node => {if (typeof model[node] === 'string') {
-		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	const thetaFunc = key => {if (model[key].typeInfo) {
+		return model[key].typeInfo.toString().includes('String')
+			||model[key].typeInfo.toString().includes('Int')
+			||model[key].typeInfo.toString().includes('Float')
 	}}
-	const colorFunc = node => {if (typeof model[node] === 'string') {
-		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	const colorFunc = key => {if (model[key].typeInfo) {
+		return model[key].typeInfo.toString().includes('String')
+			||model[key].typeInfo.toString().includes('Int')
+			||model[key].typeInfo.toString().includes('Float')
 	}}
 	const [theta, setTheta] = useState('')
 	const [color, setColor] = useState('')

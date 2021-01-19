@@ -3,11 +3,15 @@ import { useFirstUpdate } from '../../utils/useFirstUpdate'
 import WidgetOptions from '../WidgetOptions'
 
 function BarWidgetEditor({model, config, setConfig, displayedData}) {
-	const xFunc = node => {if (typeof model[node] === 'string') {
-		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	const xFunc = key => {if (model[key].typeInfo) {
+		return model[key].typeInfo.toString().includes('String')
+			||model[key].typeInfo.toString().includes('Int')
+			||model[key].typeInfo.toString().includes('Float')
 	}}
-	const yFunc = node => {if (typeof model[node] === 'string') {
-		return model[node].includes('String')||model[node].includes('Int')||model[node].includes('Float')
+	const yFunc = key => {if (model[key].typeInfo) {
+		return model[key].typeInfo.toString().includes('String')
+			||model[key].typeInfo.toString().includes('Int')
+			||model[key].typeInfo.toString().includes('Float')
 	}}
 	const [xAxis, setXAxis] = useState('')
 	const [yAxis, setYAxis] = useState('')

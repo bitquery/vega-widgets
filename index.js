@@ -11,7 +11,9 @@ class BarPlugin {
 		this.renderer = BarWidgetRenderer
 	}
 	supportsModel(model) {
-		return model[0]==='[' && model.slice(-2, -1)!=='0'
+		for (let key in model) {
+			return model[key].typeInfo.toString()[0]==='[' && model[key].typeInfo.toString().slice(-2, -1)!=='0'
+		}
 	}
 }
 class PiePlugin {
@@ -22,7 +24,9 @@ class PiePlugin {
 		this.renderer = PieWidgetRenderer
 	}
 	supportsModel(model) {
-		return model[0]==='['&& model.slice(-2, -1)!=='0'
+		for (let key in model) {
+			return model[key].typeInfo.toString()[0]==='[' && model[key].typeInfo.toString().slice(-2, -1)!=='0'
+		}
 	}
 }
 
