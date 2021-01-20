@@ -1,6 +1,5 @@
-# graphs
-Graph widgets library based on vega
 # Description
+Graph widgets library based on vega  
 Library for graph visualization based on blockchain data
 
 # Quick start
