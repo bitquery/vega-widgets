@@ -4,14 +4,13 @@ import WidgetOptions from '../WidgetOptions'
 
 function PieWidgetEditor({model, config, setConfig, displayedData}) {
 	const thetaFunc = key => {if (model[key].typeInfo) {
-		return model[key].typeInfo.toString().includes('String')
-			||model[key].typeInfo.toString().includes('Int')
-			||model[key].typeInfo.toString().includes('Float')
+		return (model[key].typeInfo.toString().includes('Int')
+			||model[key].typeInfo.toString().includes('Float'))
+			&&!model[key].typeInfo.toString().includes('Int!')
 	}}
 	const colorFunc = key => {if (model[key].typeInfo) {
 		return model[key].typeInfo.toString().includes('String')
-			||model[key].typeInfo.toString().includes('Int')
-			||model[key].typeInfo.toString().includes('Float')
+		||model[key].typeInfo.toString().includes('Int!')
 	}}
 	const [theta, setTheta] = useState('')
 	const [color, setColor] = useState('')
