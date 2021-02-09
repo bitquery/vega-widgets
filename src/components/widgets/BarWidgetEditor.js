@@ -37,7 +37,7 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 			let fieldY = yAxis.replace(`${displayedData}.`, '')
 			let cfg = {
 				encoding: {
-					x: {field: fieldX, type: 'ordinal'},
+					x: {field: fieldX, type: 'ordinal', sort: null},
 					y: {field: fieldY, type: 'quantitative'}
 				}
 			}
