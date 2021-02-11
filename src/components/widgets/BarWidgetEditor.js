@@ -38,7 +38,13 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 			let cfg = {
 				encoding: {
 					x: {field: fieldX, type: 'ordinal', sort: null},
-					y: {field: fieldY, type: 'quantitative'}
+					y: {field: fieldY, type: 'quantitative'},
+					stroke: {
+						condition: {
+						  selection: "highlight",
+						  value: "#000"
+						}
+					}
 				}
 			}
 			setConfig(cfg)

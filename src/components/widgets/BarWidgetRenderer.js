@@ -12,7 +12,14 @@ function BarWidgetRenderer({ el, config, dataSource, displayedData }) {
 				description: 'A simple bar chart with embedded data.',
 				width: "container",
 				height: "container",
-				mark: 'bar',
+				mark: {"type": "bar", "tooltip": true},
+				selection: {
+					highlight: {
+						type: "single",
+						empty: "none",
+						on: "mouseover"
+					}
+				},
 				...config,
 				data: {
 					values: dataSource.values

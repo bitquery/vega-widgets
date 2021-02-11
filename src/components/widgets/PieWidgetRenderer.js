@@ -11,7 +11,14 @@ function PieWidgetRenderer({ el, config, dataSource, displayedData }) {
 				description: 'A simple bar chart with embedded data.',
 				width: 'container',
 				height: 'container',
-				mark: 'arc',
+				mark: {"type": "arc", "tooltip": true},
+				selection: {
+					highlight: {
+						type: "single",
+						empty: "none",
+						on: "mouseover"
+					}
+				},
 				...config,
 				data: {
 					values: dataSource.values 

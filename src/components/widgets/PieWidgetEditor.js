@@ -37,7 +37,13 @@ function PieWidgetEditor({model, config, setConfig, displayedData}) {
 				data: displayedData,
 				encoding: {
 					theta: {field: fieldTheta, type: 'quantitative'},
-					color: {field: fieldColor, type: 'nominal'}
+					color: {field: fieldColor, type: 'nominal'},
+					stroke: {
+						condition: {
+						  selection: "highlight",
+						  value: "#000"
+						}
+					}
 				}
 			}
 			setConfig(cfg)
