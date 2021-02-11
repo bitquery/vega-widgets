@@ -14,6 +14,7 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 	}}
 	const [xAxis, setXAxis] = useState('')
 	const [yAxis, setYAxis] = useState('')
+	const [sample, setSample] = useState(null)
 	
 	//set options if query has config, only on mount
 	useEffect(() => {
@@ -36,6 +37,7 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 			let fieldX = xAxis.replace(`${displayedData}.`, '')
 			let fieldY = yAxis.replace(`${displayedData}.`, '')
 			let cfg = {
+				transform: [{sample: +sample ? sample : 1000}],
 				encoding: {
 					x: {field: fieldX, type: 'ordinal', sort: null},
 					y: {field: fieldY, type: 'quantitative'},
@@ -68,6 +70,17 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 					title={'Y Axis'}
 					model={model}
 				/>
+				<div class="form-group">
+					<label for="sample">Sample (optional)</label>
+					<input
+						value={sample}
+						onChange={e => setSample(e.target.value)}
+						type="text"
+						class="form-control"
+						id="sample"
+						placeholder="default"
+					/>
+				</div>
 			</div>
 		</div>
 	)
