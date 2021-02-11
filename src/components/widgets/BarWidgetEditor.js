@@ -51,7 +51,7 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 			}
 			setConfig(cfg)
 		}
-	}, [xAxis, yAxis, displayedData])
+	}, [xAxis, yAxis, sample, displayedData])
 	
 	return (
 		<div className="widget">
