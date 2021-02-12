@@ -1,6 +1,6 @@
 {
 	"name": "vega-widgets",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Graph widgets library based on vega",
 	"main": "./dist/index.js",
 	"repository": {
@@ -41,6 +41,7 @@
 		"workbox-webpack-plugin": "^5.1.4"
 	},
 	"dependencies": {
+		"react-full-screen": "^1.0.1",
 		"vega": "^5.18.0",
 		"vega-embed": "^6.15.0",
 		"vega-lite": "^4.17.0"
