@@ -1,6 +1,6 @@
 {
 	"name": "vega-widgets",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Graph widgets library based on vega",
 	"main": "./dist/index.js",
 	"repository": {
