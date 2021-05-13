@@ -30,7 +30,7 @@ export default async function pieWidgetRenderer(ds, config, el) {
 		view: {stroke: null}
 	}
 	try {
-		el && vegaEmbed(`#${el}`, cfg)
+		el && vegaEmbed(`#${el}`, cfg, {actions: false})
 	} catch (error) {
 		console.log(error)
 	}
