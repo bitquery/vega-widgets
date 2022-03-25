@@ -2,6 +2,8 @@ import BarWidgetEditor from './src/components/widgets/BarWidgetEditor'
 import barWidgetRenderer from './src/components/widgets/barWidgetRenderer'
 import PieWidgetEditor from './src/components/widgets/PieWidgetEditor'
 import pieWidgetRenderer from './src/components/widgets/pieWidgetRenderer'
+import MultiLineWidgetEditor from './src/components/widgets/MultiLineWidgetEditor'
+import multiLineWidgetRenderer from './src/components/widgets/multiLineWidgetRenderer'
 
 class Plugin {
 	constructor() {
@@ -45,5 +47,21 @@ class PiePlugin extends Plugin {
 		}
 	}
 }
+class MultiLinePlugin extends Plugin {
+	constructor() {
+		super()
+		this.id = 'vega.multiline'
+		this.name = 'Multi Line Widget'
+		this.editor = MultiLineWidgetEditor
+		this.renderer = multiLineWidgetRenderer
+		this.source = 'node_modules/vega-widgets/src/components/widgets/multiLineWidgetRenderer.js.js'
+	}
+	supportsModel(model) {
+		for (let key in model) {
+			return model[key].typeInfo.toString()[0]==='[' 
+				&& model[key].typeInfo.toString().slice(-2, -1)!=='0'
+		}
+	}
+}
 
-export let vegaPlugins = [new BarPlugin(), new PiePlugin()]
+export let vegaPlugins = [new BarPlugin(), new PiePlugin(), new MultiLinePlugin()]

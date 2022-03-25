@@ -1,7 +1,7 @@
 import vega from 'vega'
 import vegaLite from 'vega-lite'
 import vegaEmbed from 'vega-embed'
-export default async function barWidgetRenderer(ds, config, el) {
+export default async function multiLineWidgetRenderer(ds, config, el) {
 	let values = undefined
 	if (!ds.values) {
 		const data = await ds.fetcher()

@@ -14,18 +14,30 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 	}}
 	const [xAxis, setXAxis] = useState('')
 	const [yAxis, setYAxis] = useState('')
+	const [xAxisTitle, setXAxisTitle] = useState(undefined)
+	const [yAxisTitle, setYAxisTitle] = useState(undefined)
+	const [color, setColor] = useState(undefined)
 	const [sample, setSample] = useState('')
 	
 	//set options if query has config, only on mount
 	useEffect(() => {
 		if (!xAxis && config) {
 			if (Object.keys(config).length) {
+				if ('mark' in config) {
+					setColor(config.mark?.color)
+				}
 				if ('encoding' in config) {
 					if ('x' in config.encoding) {
 						setXAxis(`${displayedData}.${config.encoding.x.field}`)
+						if ('axis' in config.encoding.x) {
+							setXAxisTitle(config.encoding.x.axis?.title)
+						}
 					}
 					if ('y' in config.encoding) {
 						setYAxis(`${displayedData}.${config.encoding.y.field}`)
+						if ('axis' in config.encoding.x) {
+							setYAxisTitle(config.encoding.y.axis?.title)
+						}
 					}
 					if ('transform' in config) {
 						setSample(config.transform[0].sample)
@@ -39,22 +51,39 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 		if (model && xAxis && yAxis && xAxis.includes(displayedData)) {
 			let fieldX = xAxis.replace(`${displayedData}.`, '')
 			let fieldY = yAxis.replace(`${displayedData}.`, '')
+			const axisShared = {
+				"titleFont": "Nunito ExtraLight",
+				"titleFontWeight": "normal",
+				"titleFontStyle": "italic"
+			}
 			let cfg = {
 				transform: [{sample: +sample ? sample : 1000}],
+				mark: {"type": "bar", "tooltip": true, color: color?.match(/^#(?:[0-9a-fA-F]{3,4}){1,2}$/) && color},
 				encoding: {
-					x: {field: fieldX, type: 'ordinal', sort: null},
-					y: {field: fieldY, type: 'quantitative'},
-					stroke: {
-						condition: {
-						  selection: "highlight",
-						  value: "#000"
+					x: {
+						field: fieldX,
+						type: 'ordinal',
+						sort: null,
+						timeUnit: "yearmonthdate",
+						axis: {
+							...axisShared,
+							title: xAxisTitle && xAxisTitle,
+							labelAngle: 25
 						}
-					}
+					},
+					y: {
+						field: fieldY,
+						type: 'quantitative',
+						axis: {
+							...axisShared,
+							title: yAxisTitle && yAxisTitle
+						}
+					},
 				}
 			}
 			setConfig(cfg)
 		}
-	}, [xAxis, yAxis, sample, displayedData])
+	}, [xAxis, yAxis, color, xAxisTitle, yAxisTitle, sample, displayedData])
 	
 	return (
 		<div className="widget">
@@ -79,9 +108,34 @@ function BarWidgetEditor({model, config, setConfig, displayedData}) {
 						value={sample}
 						onChange={e => setSample(e.target.value)}
 						type="text"
-						className="form-control"
+						className="form-control form-control--sample"
 						placeholder="default"
 					/>
+					<label>Bars color</label>
+					<input
+						value={color}
+						onChange={e => setColor(e.target.value)}
+						type="text"
+						className="form-control form-control--color"
+						placeholder="default"
+					/>
+					<label>X Axis Title</label>
+					<input
+						value={xAxisTitle}
+						onChange={e => setXAxisTitle(e.target.value)}
+						type="text"
+						className="form-control form-control--xtitle"
+						placeholder="default"
+					/>
+					<label>Y Axix Title</label>
+					<input
+						value={yAxisTitle}
+						onChange={e => setYAxisTitle(e.target.value)}
+						type="text"
+						className="form-control form-control--ytitle"
+						placeholder="default"
+					/>
+					
 				</div>
 			</div>
 		</div>
